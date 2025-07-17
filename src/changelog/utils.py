@@ -11,7 +11,7 @@ Lines = List[str]
 
 class ChangelogUtils:
     CHANGELOG: str = 'CHANGELOG.md'
-    TYPES_OF_CHANGE: List[str] = ['added', 'changed', 'deprecated', 'removed', 'fixed', 'security']
+    TYPES_OF_CHANGE: List[str] = ['added', 'changed', 'deprecated', 'removed', 'fixed', 'dependencies']
     SECTIONS: Dict[str, str] = {change_type: f"### {change_type.capitalize()}\n" for change_type in TYPES_OF_CHANGE}
     REVERSE_SECTIONS: Dict[str, str] = {v: k for k, v in SECTIONS.items()}
 
@@ -21,7 +21,7 @@ class ChangelogUtils:
     BETA_SECTIONS: Dict[str, str] = {change_type: f"### {change_type.capitalize()}\n" for change_type in BETA_TYPES_OF_CHANGE}
     BETA_REVERSE_SECTIONS: Dict[str, str] = {v: k for k, v in BETA_SECTIONS.items()}
 
-    UNRELEASED: str = "\n## Unreleased\n---\n\n" + ''.join([f"{section_header}\n\n" for section_header in REVERSE_SECTIONS.keys()])
+    UNRELEASED: str = "\n## [Unreleased]\n---\n\n" + ''.join([f"{section_header}\n\n" for section_header in REVERSE_SECTIONS.keys()])
     INIT: str = BASE + UNRELEASED
 
     def initialize_changelog_file(self) -> str:
@@ -87,7 +87,7 @@ class ChangelogUtils:
                     continue
                 change_types.add(cast(str, section))
                 continue
-            if line == "## Unreleased\n":
+            if line == "## [Unreleased]\n":
                 reading = True
                 continue
 
@@ -122,7 +122,7 @@ class ChangelogUtils:
         for i, line in enumerate(data):
             if self.match_version(line):
                 reading = False
-            if line == "## Unreleased\n":
+            if line == "## [Unreleased]\n":
                 unreleased_position = i
                 line = RELEASE_LINE.format(new_version, date.today().isoformat())
             if reading and line in self.REVERSE_SECTIONS and self.REVERSE_SECTIONS[line] not in change_types:

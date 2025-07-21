@@ -1,3 +1,7 @@
+# ARCHIVE INFORMATION
+> [!IMPORTANT]
+> This repository has been archived due to a missing or incorrect registration in the Backstage Software Catalog.  
+> To restore, refer to the [repository archival FAQ](https://docs.corp.spoton.sh/developer/undocumented-repositories-archival-faq/).
 # Changelog CLI
 
 [![PyPI version](https://badge.fury.io/py/changelog-cli.svg)](https://badge.fury.io/py/changelog-cli)
